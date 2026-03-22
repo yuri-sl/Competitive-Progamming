@@ -1,41 +1,45 @@
 #include <iostream>
-#include <stdio.h>
+using namespace std;
 
+int main() {
+    int n, x;
+    int taxi = 0, c1 = 0, c2 = 0, c3 = 0;
 
-int main(){
-    int n,ans,count,aux;
-    std::cin>>n;
-    int arr[n];
-    ans = 0;
-    
-    for(int i=0;i<n;i++){
-        std::cin >> arr[i];
-    }
-    
-    ans = 0;
-    count = 0;
-    aux = 0;
+    cin >> n;
 
-    for(int x: arr){
-        if ( count == 4){
-            ans +=1;
-            count = 0;
-            std::cout<<"contagem igual a 4"<<std::endl;
-        }
-        if ((count + x) > 4  ){
-            count = count + (4 - x);
-            ans += 1;
-            count = 4 - x;
-            std::cout<<"contagem maior q 4"<<std::endl;
-        }else{
-            count += x;
-            std::cout<<"contagem incrementada "<<std::endl;
-        }
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        if (x == 4){ 
+            taxi++;
+        }else if (x == 3){ 
+            c3++;
+        } else if (x == 2) {
+                c2++;
+            }else if (x == 1){
+                c1++;
+            } 
     }
 
-    std::cout<<ans<<std::endl;
+    while (c3 > 0) {
+        c3--;
+        if (c1 > 0) c1--;
+        taxi++;
+    }
 
+    taxi += c2 / 2;
+    c2 %= 2;
 
+    if (c2 == 1) {
+        taxi++;
+        c1 -= min(c1, 2);
+    }
+
+    while (c1 > 0) {
+        taxi++;
+        c1 -= 4;
+    }
+
+    cout << taxi << endl;
 
     return 0;
 }
